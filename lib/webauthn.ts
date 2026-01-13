@@ -42,9 +42,9 @@ export async function createRegistrationOptions(args: {
     userName: args.userName,
     attestationType: "none",
     excludeCredentials: args.existingCredentialIDs.map((id) => ({
-      id,
-      type: "public-key",
-    })),
+    id: id.toString("base64url"),
+  })),
+
     authenticatorSelection: {
       residentKey: "preferred",
       userVerification: "preferred",
@@ -85,9 +85,9 @@ export async function createAuthOptions(args: {
   const opts = await generateAuthenticationOptions({
     rpID,
     allowCredentials: args.allowCredentialIDs.map((id) => ({
-      id,
-      type: "public-key",
-    })),
+  id: id.toString("base64url"),
+  })),
+
     userVerification: "preferred",
   });
 
