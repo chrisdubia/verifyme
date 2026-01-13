@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  label     String?
+
+  passkeys   PasskeyCredential[]
+  deviceKeys DeviceKey[]
+  provenance ProvenanceRecord[]
+}
+
+model PasskeyCredential {
+  id                   String   @id @default(cuid())
+  createdAt            DateTime @default(now())
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id])
+
+  credentialID         Bytes    @unique
+  credentialPublicKey  Bytes
+  counter              Int
+  transports           String?
+}
+
+model DeviceKey {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  name      String?
+  alg       String
+  publicJwk Json
+}
+
+model ProvenanceRecord {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+
+  deviceKeyId  String
+  fileName     String
+  mimeType     String
+  sha256Hex    String
+  signatureB64 String
+  metadata     Json?
+}
