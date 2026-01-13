@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   const opts = await createRegistrationOptions({
     userId: user.id,
     userName,
-    existingCredentialIDs: existing.map((c) => Buffer.from(c.credentialID)),
+    existingCredentialIDs: existing.map((c: { credentialID: Buffer }) => Buffer.from(c.credentialID)),
   });
 
   return NextResponse.json({ userId: user.id, options: opts });
