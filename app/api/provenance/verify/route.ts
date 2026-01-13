@@ -47,12 +47,16 @@ export async function POST(req: Request) {
   const msg = hexToBytes(providedHash);
   const sig = b64ToBytes(rec.signatureB64);
 
-  const signatureValid = await crypto.subtle.verify(
-    { name: "ECDSA", hash: "SHA-256" },
-    publicKey,
-    sig,
-    msg
-  );
+const sigAB = sig.buffer.slice(sig.byteOffset, sig.byteOffset + sig.byteLength);
+const msgAB = msg.buffer.slice(msg.byteOffset, msg.byteOffset + msg.byteLength);
+
+const signatureValid = await crypto.subtle.verify(
+  { name: "ECDSA", hash: "SHA-256" },
+  publicKey,
+  sigAB,
+  msgAB
+);
+
 
   const hashMatchesRecord = providedHash === expectedHash;
 
