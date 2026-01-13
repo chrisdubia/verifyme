@@ -118,7 +118,6 @@ export async function verifyAuth(args: {
         credentialID: args.credential.credentialID.toString("base64url"),
         credentialPublicKey: args.credential.credentialPublicKey,
         counter: args.credential.counter,
-},
       },
     });
 
@@ -127,3 +126,4 @@ export async function verifyAuth(args: {
 
   return verification;
 }
+
