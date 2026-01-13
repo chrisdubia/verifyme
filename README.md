@@ -6,6 +6,7 @@ What this is
   2) enroll a device signing key (ECDSA P-256)
   3) sign a photo or video by hashing it and signing the hash
   4) verify that media later by checking hash match + signature validity
+  5) preview deploy test
 
 Important limitations (v1)
 - This proves integrity since signing and who signed it.
