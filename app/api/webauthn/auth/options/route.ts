@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
   const opts = await createAuthOptions({
     userId,
-    allowCredentialIDs: creds.map((c) => Buffer.from(c.credentialID)),
+    allowCredentialIDs: creds.map((c: { credentialID: Buffer }) => Buffer.from(c.credentialID)),
   });
 
   return NextResponse.json({ options: opts });
