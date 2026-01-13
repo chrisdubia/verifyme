@@ -38,7 +38,7 @@ export async function createRegistrationOptions(args: {
   const opts = await generateRegistrationOptions({
     rpID,
     rpName,
-    userID: args.userId,
+    userID: Buffer.from(args.userId),
     userName: args.userName,
     attestationType: "none",
     excludeCredentials: args.existingCredentialIDs.map((id) => ({
