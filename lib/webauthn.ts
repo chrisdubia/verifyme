@@ -115,9 +115,10 @@ export async function verifyAuth(args: {
       expectedOrigin: origin,
       expectedRPID: rpID,
       authenticator: {
-        credentialID: args.credential.credentialID,
+        credentialID: args.credential.credentialID.toString("base64url"),
         credentialPublicKey: args.credential.credentialPublicKey,
         counter: args.credential.counter,
+},
       },
     });
 
