@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   if (!creds.length) return NextResponse.json({ error: "No credential" }, { status: 400 });
 
   // Find credential by ID if provided
-  const matching = creds.find((c) => {
+  const matching = creds.find((c: { credentialID: Buffer; credentialPublicKey: Buffer; counter: number; id: string }) => {
     const idB64Url = response.id as string;
     // We store credentialID as bytes; simplewebauthn browser sends base64url id
     const stored = Buffer.from(c.credentialID).toString("base64url");
